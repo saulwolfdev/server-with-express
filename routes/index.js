@@ -12,39 +12,15 @@ const router = express.Router()
 //     res.end("Hello Word this routes")
 // })
 // rederizamos un archico que se convertira en un html(13)
-router.get('/', (req, res) => {
-  res.render('index', {
-    title: 'my webstore'
-  })
-})
-// lista de productos(14)
-const items = [
-  { id: 1, name: 'product 01' },
-  { id: 2, name: 'product 02' },
-  { id: 3, name: 'product 03' },
-  { id: 4, name: 'product 04' },
-  { id: 5, name: 'product 05' },
-  { id: 6, name: 'product 06' },
-  { id: 7, name: 'product 07' }
-]
-router.get('/products', (req, res, next) => {
-  res.render('products', {
-    title: 'List of product',
-    items: items
-  })
-})
-// agregamos una nueva ruta que nos trae y recibimos del servidor(15)
-router.post('/new-product', (req, res, next) => {
 
-  console.log(req.body)
-  // const newItem=req.body.newItem
-  //  items.push({
-  //    id:items.length+1,
-  //    name: newItem
-  //  })
-//una vez alamacenado respndemos algo al navegador.(16)
-//  res.redirect("/products")
-})
+//importamos la logica por separado(16)
+const indexControler=require("../controllers/index")
+router.get('/',indexControler.index)
+
+
+router.get('/products',indexControler.product)
+// agregamos una nueva ruta que nos trae y recibimos del servidor(15)
+router.post('/new-product',indexControler.newProduct)
 
 // PERO AUNQUE ES MUY LEGIBLE, CUANDO QUERAMOS AGREGAR MAS RUTAS SE VA VOLVER
 // POCO MANEJABLE VAMOSA SEPARAR LA LOGICA EN LA CARPETA CONTROLLERS
